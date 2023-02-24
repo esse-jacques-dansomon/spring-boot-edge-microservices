@@ -1,0 +1,14 @@
+/images
+/.idea
+/.vscode
+/.gitattributes
+/.gitmodules
+/.gitkeep
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+
+
