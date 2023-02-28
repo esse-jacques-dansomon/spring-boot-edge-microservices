@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 @FeignClient(name = "microservice-commandes")
-//@RibbonClient(name = "microservice-commandes")
 public interface MicroserviceCommandeProxy {
 
     @PostMapping(value = "/commandes")
