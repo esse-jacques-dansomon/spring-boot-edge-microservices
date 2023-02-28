@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
+@RequestMapping("/produits")
 public class ProductController {
 
     private ProductDao productDao;
@@ -21,7 +22,7 @@ public class ProductController {
     }
 
     // Affiche la liste de tous les produits disponibles
-    @GetMapping(value = "/Produits")
+    @GetMapping(value = "/")
     public List<Product> listeDesProduits(){
 
         List<Product> products = productDao.findAll();
@@ -34,7 +35,7 @@ public class ProductController {
     }
 
     //Récuperer un produit par son id
-    @GetMapping( value = "/Produits/{id}")
+    @GetMapping( value = "/{id}")
     public Optional<Product> recupererUnProduit(@PathVariable int id) {
 
         Optional<Product> product = productDao.findById(id);
@@ -44,7 +45,7 @@ public class ProductController {
         return product;
     }
 
-    @GetMapping( value = "/")
+    @GetMapping( value = "/one")
     public Product recupererUnProduit() {
         Product product = new Product();
         product.setId(1);
