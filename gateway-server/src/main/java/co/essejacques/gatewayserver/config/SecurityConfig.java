@@ -16,7 +16,7 @@ public class SecurityConfig {
         http.csrf().disable()
                 .authorizeExchange(
                         exchange -> exchange
-                                .pathMatchers("/actuator/**", "/eureka/**", "/").permitAll()
+                                .pathMatchers("/actuator/**", "/eureka/**", "/produits/**", "/microservice-produits").permitAll()
                                 .anyExchange().authenticated()
                 )
                 .oauth2ResourceServer(ServerHttpSecurity.OAuth2ResourceServerSpec::jwt);
