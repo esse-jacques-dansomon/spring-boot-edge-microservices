@@ -8,16 +8,16 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
 
-@FeignClient(name = "microservice-produits", configuration = CustomLoadBalancerConfiguration.class)
+@FeignClient(name = "gateway-server")
 public interface MicroserviceProduitsProxy {
 
-    @GetMapping(value = "/Produits")
+    @GetMapping(value = "/produits/")
     List<ProductBean> listeDesProduits();
 
     /*
     * Notez ici la notation @PathVariable("id") qui est différente de celle qu'on utlise dans le contrôleur
     **/
-    @GetMapping( value = "/Produits/{id}")
+    @GetMapping( value = "/produits/{id}")
     ProductBean recupererUnProduit(@PathVariable("id") int id);
 
 

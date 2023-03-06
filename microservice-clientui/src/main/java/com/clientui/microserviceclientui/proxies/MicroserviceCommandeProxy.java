@@ -6,7 +6,8 @@ import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
-@FeignClient(name = "microservice-commandes")
+
+@FeignClient(name = "gateway-server")
 public interface MicroserviceCommandeProxy {
 
     @PostMapping(value = "/commandes")
