@@ -4,10 +4,14 @@ import com.mproduits.configurations.ApplicationPropertiesConfiguration;
 import com.mproduits.dao.ProductDao;
 import com.mproduits.model.Product;
 import com.mproduits.web.exceptions.ProductNotFoundException;
+import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
+import io.github.resilience4j.retry.annotation.Retry;
+import io.github.resilience4j.timelimiter.annotation.TimeLimiter;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.CompletableFuture;
 
 @RestController
 @RequestMapping("/produits")
@@ -23,15 +27,26 @@ public class ProductController {
 
     // Affiche la liste de tous les produits disponibles
     @GetMapping(value = "/")
-    public List<Product> listeDesProduits(){
+    @CircuitBreaker(name="inventory",fallbackMethod = "fallBackMethod")
+    @TimeLimiter(name="inventory")
+    @Retry(name ="ïnventory")
+    public CompletableFuture<List<Product>> listeDesProduits(){
 
         List<Product> products = productDao.findAll();
 
         if(products.isEmpty()) throw new ProductNotFoundException("Aucun produit n'est disponible à la vente");
 
         List<Product> listeLimitee = products.subList(0, appProperties.getLimitDeProduits());
-        return listeLimitee;
+        return  CompletableFuture.supplyAsync(
+                ()->listeLimitee
+        );
 
+    }
+
+    public CompletableFuture<String> fallBackMethod(RuntimeException e){
+        return CompletableFuture.supplyAsync(
+                ()->"oups Something went wrog "
+        );
     }
 
     //Récuperer un produit par son id
