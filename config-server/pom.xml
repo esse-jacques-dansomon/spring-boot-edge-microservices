@@ -31,7 +31,12 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
-	</dependencies>
+        <dependency>
+            <groupId>com.github.ydespreaux.testcontainers.kafka.test</groupId>
+            <artifactId>testcontainers-kafka-test</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+    </dependencies>
 	<dependencyManagement>
 		<dependencies>
 			<dependency>
